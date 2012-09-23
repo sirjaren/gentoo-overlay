@@ -10,10 +10,4 @@
 		interface to manage a user's FLAC library, providing a way to retag,
 		verify, validate and prune FLAC files.
 	</longdescription>
-	<use>
-		<flag name="auto-width">Allows printing to full length of terminals of varying
-			width, through the use of <pkg>sys-libs/ncurses</pkg>'s tput command.</flag>
-		<flag name="pager">Allows piping the 'help' through <pkg>sys-apps/less</pkg>.</flag>
-		<flag name="spectrogram">Uses <pkg>media-sound/sox</pkg> to create spectrograms.</flag>
-	</use>
 </pkgmetadata>
