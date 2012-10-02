@@ -18,9 +18,7 @@ DEPEND=""
 RDEPEND="app-shells/bash
 	media-libs/flac
 	sys-apps/coreutils
-	sys-apps/findutils
-	sys-apps/gawk
-	sys-apps/grep"
+	sys-apps/findutils"
 
 src_install() {
 	exeinto /usr/bin
@@ -32,4 +30,9 @@ pkg_postinst() {
 	elog "   sys-libs/ncurses   ->  support for full terminal width"
 	elog "   media-sound/sox    ->  support for creating spectrograms"
 	elog "   media-libs/libpng  ->  needed by media-sound/sox"
+	elog "   auCDtect           ->  support for determining authenticity"
+	elog "                          of FLAC files (CDDA)"
+	elog "You can download auCDtect from here:"
+	elog "   http://en.true-audio.com/ftp/aucdtect-0.8.2.tgz      <- Binary file"
+	elog "   http://en.true-audio.com/ftp/aucdtect-0.8-2.i586.rpm <- RPM Binary"
 }
