@@ -27,7 +27,6 @@ src_install() {
 
 pkg_postinst() {
 	elog "This script makes use of optional programs if installed:"
-	elog "   sys-libs/ncurses   ->  support for full terminal width"
 	elog "   media-sound/sox    ->  support for creating spectrograms"
 	elog "   media-libs/libpng  ->  needed by media-sound/sox"
 	elog "   auCDtect           ->  support for determining authenticity"
