@@ -27,11 +27,8 @@ src_install() {
 
 pkg_postinst() {
 	elog "This script makes use of optional programs if installed:"
-	elog "   media-sound/sox    ->  support for creating spectrograms"
-	elog "   media-libs/libpng  ->  needed by media-sound/sox"
-	elog "   auCDtect           ->  support for determining authenticity"
-	elog "                          of FLAC files (CDDA)"
-	elog "You can download auCDtect from here:"
-	elog "   http://en.true-audio.com/ftp/aucdtect-0.8.2.tgz      <- Binary file"
-	elog "   http://en.true-audio.com/ftp/aucdtect-0.8-2.i586.rpm <- RPM Binary"
+	elog "   media-sound/sox       ->  support for creating spectrograms"
+	elog "   media-libs/libpng     ->  needed by media-sound/sox"
+	elog "   media-sound/aucdtect  ->  support for determining authenticity"
+	elog "                             of FLAC files (CDDA)"
 }
