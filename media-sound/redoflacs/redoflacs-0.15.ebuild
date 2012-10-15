@@ -22,7 +22,6 @@ RDEPEND="app-shells/bash
 
 src_install() {
 	exeinto /usr/bin
-	newexe redoFlacs.sh redoflacs
 }
 
 pkg_postinst() {
