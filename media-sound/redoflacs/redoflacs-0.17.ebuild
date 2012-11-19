@@ -17,8 +17,7 @@ IUSE=""
 DEPEND=""
 RDEPEND="app-shells/bash
 	media-libs/flac
-	sys-apps/coreutils
-	sys-apps/findutils"
+	sys-apps/coreutils"
 
 src_install() {
 	exeinto /usr/bin
