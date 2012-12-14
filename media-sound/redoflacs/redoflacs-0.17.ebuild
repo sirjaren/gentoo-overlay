@@ -5,7 +5,7 @@
 EAPI=4
 inherit vcs-snapshot
 
-DESCRIPTION="Bash commandline flac verifier, organizer, analyzer"
+DESCRIPTION="Parallel BASH commandline FLAC compressor, verifier, organizer, analyzer, and retagger"
 HOMEPAGE="https://github.com/sirjaren/redoflacs"
 SRC_URI="https://github.com/sirjaren/${PN}/tarball/v${PV} -> ${P}.tar.gz"
 
@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND="app-shells/bash
+RDEPEND=">=app-shells/bash-4
 	media-libs/flac
 	sys-apps/coreutils"
 
