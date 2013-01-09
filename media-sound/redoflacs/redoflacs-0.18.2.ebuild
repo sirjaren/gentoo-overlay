@@ -1,8 +1,8 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/redoflacs/redoflacs-0.15.ebuild,v 1.1 2012/10/06 07:40:48 yngwin Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/redoflacs/redoflacs-0.16.2.ebuild,v 1.1 2012/10/29 14:25:28 yngwin Exp $
 
-EAPI=4
+EAPI=5
 inherit vcs-snapshot
 
 DESCRIPTION="Parallel BASH commandline FLAC compressor, verifier, organizer, analyzer, and retagger"
@@ -21,7 +21,7 @@ RDEPEND=">=app-shells/bash-4
 
 src_install() {
 	exeinto /usr/bin
-	newexe redoFlacs redoflacs
+	doexe redoflacs
 }
 
 pkg_postinst() {
