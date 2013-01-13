@@ -1,0 +1,8 @@
+Getting the overlay
+-------------------
+
+Copy sirjaren.xml into /etc/layman/overlays/ or add
+https://raw.github.com/sirjaren/gentoo-overlay/master/sirjaren.xml
+to the overlays line of /etc/layman/layman.cfg.
+
+Then run: layman -a sirjaren
