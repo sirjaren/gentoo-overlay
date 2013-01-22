@@ -22,7 +22,10 @@ RDEPEND="amd64? ( app-emulation/emul-linux-x86-compat )"
 
 S="${WORKDIR}/usr/local/bin"
 
+QA_PREBUILT="opt/auCDtect/*"
+
 src_install() {
-	exeinto /usr/bin
+	exeinto "/opt/${MY_PN}"
 	doexe "${MY_PN}"
+	dosym "/opt/${MY_PN}/${MY_PN}" /usr/bin/auCDtect
 }
