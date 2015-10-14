@@ -19,7 +19,7 @@ IUSE="gtk imagemagick jpeg +network nls openmp tiff udev"
 
 DEPEND="
 	media-gfx/sane-backends
-	virtual/libusb:0
+	virtual/libusb:1
 	gtk?         ( dev-cpp/gtkmm:2.4 )
 	imagemagick? ( media-gfx/imagemagick )
 	jpeg?        ( virtual/jpeg:0 )
@@ -43,16 +43,16 @@ src_prepare() {
 }
 
 src_configure() {
-	econf                                                 \
-		--with-sane                                       \
-		--with-sane-confdir="${EPREFIX}"/etc/sane.d       \
-		$(use_with gtk gtkmm)                             \
-		$(use_with imagemagick magick)                    \
-		$(use_with imagemagick magick-pp)                 \
-		$(use_with jpeg)                                  \
-		$(use_enable nls)                                 \
-		$(use_enable openmp)                              \
-		$(use_with tiff)                                  \
-		$(use_enable udev udev_config)                    \
+	econf \
+		--with-sane                                 \
+		--with-sane-confdir="${EPREFIX}"/etc/sane.d \
+		$(use_with gtk gtkmm)                       \
+		$(use_with imagemagick magick)              \
+		$(use_with imagemagick magick-pp)           \
+		$(use_with jpeg)                            \
+		$(use_enable nls)                           \
+		$(use_enable openmp)                        \
+		$(use_with tiff)                            \
+		$(use_enable udev udev_config)              \
 		$(use_with udev udev_confdir "${EPREFIX}"/$(get_libdir)/udev)
 }
