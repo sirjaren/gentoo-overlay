@@ -12,17 +12,19 @@ SRC_URI="https://github.com/utsushi/imagescan/archive/${PV}.tar.gz -> epson-ds-$
 
 RESTRICT="nomirror"
 
-LICENSE="AVASYS"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~x64"
 IUSE="gtk imagemagick jpeg +network nls openmp tiff udev"
 
 DEPEND="
 	media-gfx/sane-backends
+	virtual/libusb:0
 	gtk?         ( dev-cpp/gtkmm:2.4 )
 	imagemagick? ( media-gfx/imagemagick )
 	jpeg?        ( virtual/jpeg:0 )
 	tiff?        ( media-libs/tiff:0= )
+	udev?        ( virtual/udev )
 "
 
 RDEPEND="
