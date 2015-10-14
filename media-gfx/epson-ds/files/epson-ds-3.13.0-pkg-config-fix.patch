@@ -1,0 +1,13 @@
+diff --git a/imagescan-3.13.0.old/configure b/imagescan-3.13.0.new/configure
+index 73d9dc0..cf0c83e 100755
+--- a/imagescan-3.13.0.old/configure
++++ b/imagescan-3.13.0.new/configure
+@@ -22926,7 +22926,7 @@ $as_echo_n "checking SANE version... " >&6; }
+   ac_status=$?
+   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+   test $ac_status = 0; }; then
+-         sane_version=`$PKG_CONFIG --modversion sane-backends`
++         sane_version=`$PKG_CONFIG --modversion sane-backends | sed 's/git//g'`
+         sane_backenddir=`$PKG_CONFIG --variable libdir sane-backends`/sane
+ 
+ else
