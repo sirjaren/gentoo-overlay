@@ -1,0 +1,11 @@
+--- sane/Makefile.am.orig	2015-12-01 15:09:12.867528927 -0600
++++ sane/Makefile.am	2015-12-01 15:11:56.264001539 -0600
+@@ -217,7 +217,7 @@
+ 	  echo " skipping component activation"; \
+ 	  exit 1; \
+ 	fi
+-	if test -d "$(SANE_SYSCONFDIR)/dll.d"; then \
++	if test -d "$(DESTDIR)$(SANE_SYSCONFDIR)/dll.d"; then \
+ 	  dirname="$(DESTDIR)$(SANE_SYSCONFDIR)/dll.d"; \
+ 	  file=$$dirname/$(BACKEND_NAME); \
+ 	  test -d $$dirname || $(MKDIR_P) $$dirname; \

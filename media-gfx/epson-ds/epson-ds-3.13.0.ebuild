@@ -15,16 +15,17 @@ RESTRICT="nomirror"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~x64"
-IUSE="gtk imagemagick jpeg +network nls openmp tiff udev"
+IUSE="gtk imagemagick jpeg +network nls openmp system-boost tiff udev"
 
 DEPEND="
 	media-gfx/sane-backends
 	virtual/libusb:1
-	gtk?         ( dev-cpp/gtkmm:2.4 )
-	imagemagick? ( media-gfx/imagemagick )
-	jpeg?        ( virtual/jpeg:0 )
-	tiff?        ( media-libs/tiff:0= )
-	udev?        ( virtual/udev )
+	gtk?          ( dev-cpp/gtkmm:2.4 )
+	imagemagick?  ( media-gfx/imagemagick )
+	jpeg?         ( virtual/jpeg:0 )
+	system-boost? ( dev-libs/boost )
+	tiff?         ( media-libs/tiff:0= )
+	udev?         ( virtual/udev )
 "
 
 RDEPEND="
@@ -43,9 +44,18 @@ src_prepare() {
 }
 
 src_configure() {
+	# 'utsushi' requires the 'boost' libraries
+	if use system-boost; then
+	  boost_conf="--without-included-boost"
+	  boost_conf+=" --with-boost=yes"
+	else
+	  boost_conf="--with-included-boost"
+	fi
+
 	econf \
 		--with-sane                                 \
 		--with-sane-confdir="${EPREFIX}"/etc/sane.d \
+		$boost_conf                                 \
 		$(use_with gtk gtkmm)                       \
 		$(use_with imagemagick magick)              \
 		$(use_with imagemagick magick-pp)           \
