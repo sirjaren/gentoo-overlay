@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 8264185..6d37e65 100644
+--- a/Makefile
++++ b/Makefile
+@@ -42,8 +42,6 @@ install: all
+ 	$(INSTALL) -d $(DESTDIR)$(SYSCONFDIR)/pam.d
+ 	$(INSTALL) -m 755 i3lock $(DESTDIR)$(PREFIX)/bin/i3lock
+ 	$(INSTALL) -m 644 i3lock.pam $(DESTDIR)$(SYSCONFDIR)/pam.d/i3lock
+-	gzip -kf i3lock.1
+-	$(INSTALL) -m 644 i3lock.1.gz $(MANDIR)/man1/i3lock.1.gz
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(PREFIX)/bin/i3lock
