@@ -46,9 +46,6 @@ RDEPEND="
 "
 
 src_prepare() {
-	# Copy over new 'ltmain.sh' file (patch)
-	cp "${FILESDIR}"/ltmain.sh-2.4.diff "${S}"/sane/
-
 	# Ensure sane configuration is created if SANE confdir is set
 	epatch "${FILESDIR}"/${PF}-sane-makefile-fix.patch
 
@@ -61,15 +58,17 @@ src_prepare() {
 }
 
 src_configure() {
+	# TODO:
+	#   utsushi fails to build with 'magick-pp' (autocrop and deskew support).
+	#	$(use_with imagemagick magick-pp)           \
 	econf \
 		--with-sane                                 \
 		--with-sane-confdir="${EPREFIX}"/etc/sane.d \
-		--without-included-boost                    \
 		--with-boost=yes                            \
+		--without-magick-pp                         \
 		$(use_with gtk gtkmm)                       \
-		$(use_with imagemagick magick)              \
-		$(use_with imagemagick magick-pp)           \
 		$(use_with jpeg)                            \
+		$(use_with imagemagick magick)              \
 		$(use_enable nls)                           \
 		$(use_enable openmp)                        \
 		$(use_with tiff)                            \
