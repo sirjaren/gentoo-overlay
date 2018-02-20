@@ -49,6 +49,13 @@ src_prepare() {
 	# Ensure sane configuration is created if SANE confdir is set
 	epatch "${FILESDIR}"/${PF}-sane-makefile-fix.patch
 
+	# AX_BOOST_BASE does not need to be patched
+	epatch "${FILESDIR}"/${PF}-boost.patch
+
+	# ImageMagick >= 7 removed various *_MAGICK_PP api's, which are possibly
+	# not needed. See: https://github.com/utsushi/utsushi/issues/43
+	epatch "${FILESDIR}"/${PF}-magick-pp.patch
+
 	# utsushi requires using this bootstrap wrapper in lieu of autotools
 	${S}/bootstrap || die
 
@@ -58,20 +65,17 @@ src_prepare() {
 }
 
 src_configure() {
-	# TODO:
-	#   utsushi fails to build with 'magick-pp' (autocrop and deskew support).
-	#	$(use_with imagemagick magick-pp)           \
 	econf \
 		--with-sane                                 \
 		--with-sane-confdir="${EPREFIX}"/etc/sane.d \
 		--with-boost=yes                            \
-		--without-magick-pp                         \
 		$(use_with gtk gtkmm)                       \
 		$(use_with jpeg)                            \
 		$(use_with imagemagick magick)              \
+		$(use_with imagemagick magick-pp)           \
 		$(use_enable nls)                           \
 		$(use_enable openmp)                        \
 		$(use_with tiff)                            \
-		$(use_enable udev udev_config)              \
-		$(use_with udev udev_confdir "${EPREFIX}"/$(get_libdir)/udev)
+		$(use_enable udev udev-config)              \
+		$(use_with udev udev-confdir "${EPREFIX}"/$(get_libdir)/udev)
 }
