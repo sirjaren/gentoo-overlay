@@ -1,8 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=5
+EAPI=6
 
 inherit rpm
 
@@ -10,22 +9,19 @@ S="${WORKDIR}"
 
 DESCRIPTION="Non-free network plugin package for Epson DS line of scanners"
 HOMEPAGE="http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX"
-SRC_URI="
-	x86?   ( https://download3.ebz.epson.net/dsc/f/03/00/04/16/39/5be81863c43b44e13cef82437492e117bad7e1ed/imagescan-bundle-centos-6-${PV}.x86.rpm.tar.gz )
-	amd64? ( https://download3.ebz.epson.net/dsc/f/03/00/04/16/39/8daed7ee9b07bd31d96861bb76e3fea1b47ce91e/imagescan-bundle-centos-6-${PV}.x64.rpm.tar.gz )
-"
+SRC_URI="https://download2.ebz.epson.net/imagescanv3/centos/latest1/rpm/x64/imagescan-bundle-centos-7-${PV}.x64.rpm.tar.gz"
 
 RESTRICT="nomirror"
 
 LICENSE="AVASYS"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=""
 RDEPEND="
 	${DEPEND}
-	media-gfx/epson-ds
+	media-gfx/utsushi
 "
 
 # EPSON provided closed-source binary
@@ -38,24 +34,23 @@ src_unpack() {
 	# Unpack top-level package
 	unpack "$A"
 
-	# NOTE: EAPI 6 will support absolute pathnames to unpack() and rpm_unpack()
 	# Unpack the core drivers to the created 'core' directory
 	cd "${WORKDIR}/core"
-	rpm_unpack ./../imagescan-bundle-centos-6-${PV}.x??.rpm/core/imagescan-*.rpm
+	rpm_unpack ./../imagescan-bundle-centos-7-${PV}.x64.rpm/core/imagescan-*.rpm
 
 	# Unpack 'networkscan' plugin to the created 'plugins' directory
 	cd "${WORKDIR}/plugins"
-	rpm_unpack ./../imagescan-bundle-centos-6-${PV}.x??.rpm/plugins/imagescan-plugin-networkscan*.rpm
+	rpm_unpack ./../imagescan-bundle-centos-7-${PV}.x64.rpm/plugins/imagescan-plugin-networkscan*.rpm
 }
 
+#
+# The udev rules are not installed as it's handled by the 'utsushi' source
+# package.
+#
+# The 'utsushi' config file for SANE (/etc/sane.d/dll.d/utsushi) is handled by
+# the 'utsushi' source package
+#
 src_install() {
-	# NOTE:
-	#  The udev rules are not installed as it's handled by the 'utsushi'
-	#  source package
-	#
-	#  The 'utushi' config file for SANE (/etc/sane.d/dll.d/utsushi) is handled
-	#  by the 'utsushi' source package
-	# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	# Create a subdirectory to install the 'networkscan' docs
 	dodoc ${WORKDIR}/plugins/usr/share/doc/imagescan-plugin-networkscan-*/{README,NEWS,AVASYSPL.en.txt}
 
