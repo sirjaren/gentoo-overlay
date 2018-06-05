@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/utsushi/utsushi.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~x64"
-IUSE="gtk imagemagick jpeg +network nls openmp tiff udev"
+IUSE="gtk jpeg +network nls openmp tiff udev"
 
 # These are needed by utsushi's 'bootstrap':
 #   dev-libs/gnulib
@@ -26,6 +26,8 @@ IUSE="gtk imagemagick jpeg +network nls openmp tiff udev"
 # NOTE:
 #   Utsushi fails to build with GCC >= 8.0
 #   Utsushi fails to build with libusb >= 1.0.22
+#   ImageMagick is now a hard dependency. See:
+#     https://github.com/utsushi/utsushi/issues/58
 DEPEND="
 	dev-libs/gnulib
 	sys-devel/autoconf-archive
@@ -34,12 +36,12 @@ DEPEND="
 	sys-devel/gettext
 	sys-devel/libtool
 	sys-devel/patch
+	media-gfx/imagemagick
 	media-gfx/sane-backends
 	<sys-devel/gcc-8
 	<=dev-libs/libusb-1.0.21
 	>=dev-libs/boost-1.50.0
 	gtk?          ( dev-cpp/gtkmm:2.4 )
-	imagemagick?  ( media-gfx/imagemagick )
 	jpeg?         ( virtual/jpeg:0 )
 	tiff?         ( media-libs/tiff:0= )
 	udev?         ( virtual/udev )
@@ -87,10 +89,10 @@ src_configure() {
 		--with-sane                                 \
 		--with-sane-confdir="${EPREFIX}"/etc/sane.d \
 		--with-boost=yes                            \
+		--with-magick                               \
+		--with-magick-pp                            \
 		$(use_with gtk gtkmm)                       \
 		$(use_with jpeg)                            \
-		$(use_with imagemagick magick)              \
-		$(use_with imagemagick magick-pp)           \
 		$(use_enable nls)                           \
 		$(use_enable openmp)                        \
 		$(use_with tiff)                            \
