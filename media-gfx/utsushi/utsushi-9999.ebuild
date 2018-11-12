@@ -6,8 +6,8 @@ EAPI=6
 inherit autotools eutils git-r3 multilib toolchain-funcs
 
 DESCRIPTION="SANE backend driver for newer Epson scanners (DS, ET, PX, etc)"
-HOMEPAGE="https://github.com/utsushi/utsushi"
-EGIT_REPO_URI="https://github.com/utsushi/utsushi.git"
+HOMEPAGE="https://gitlab.com/utsushi/utsushi"
+EGIT_REPO_URI="https://gitlab.com/utsushi/utsushi.git"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -26,7 +26,7 @@ IUSE="gtk jpeg +network nls openmp tiff udev"
 # NOTE:
 #   Utsushi fails to build with GCC >= 8.0
 #   ImageMagick is now a hard dependency. See:
-#     https://github.com/utsushi/utsushi/issues/58
+#     https://gitlab.com/utsushi/utsushi/issues/58
 DEPEND="
 	dev-libs/gnulib
 	sys-devel/autoconf-archive
@@ -59,7 +59,7 @@ PATCHES=(
 	"${FILESDIR}/${PF}-libusb.patch"
 
 	# ImageMagick >= 7 removed various *_MAGICK_PP api's, which are possibly
-	# not needed. See: https://github.com/utsushi/utsushi/issues/43
+	# not needed. See: https://gitlab.com/utsushi/utsushi/issues/43
 	"${FILESDIR}/${PF}-magick-pp.patch"
 )
 
