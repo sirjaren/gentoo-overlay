@@ -25,7 +25,6 @@ IUSE="gtk jpeg +network nls openmp tiff udev"
 #
 # NOTE:
 #   Utsushi fails to build with GCC >= 8.0
-#   Utsushi fails to build with libusb >= 1.0.22
 #   ImageMagick is now a hard dependency. See:
 #     https://github.com/utsushi/utsushi/issues/58
 DEPEND="
@@ -38,9 +37,9 @@ DEPEND="
 	sys-devel/patch
 	media-gfx/imagemagick
 	media-gfx/sane-backends
-	<sys-devel/gcc-8
-	<=dev-libs/libusb-1.0.21
+	>=dev-libs/libusb-1.0.22
 	>=dev-libs/boost-1.50.0
+	<sys-devel/gcc-8
 	gtk?          ( dev-cpp/gtkmm:2.4 )
 	jpeg?         ( virtual/jpeg:0 )
 	tiff?         ( media-libs/tiff:0= )
@@ -55,6 +54,9 @@ RDEPEND="
 PATCHES=(
 	# AX_BOOST_BASE does not need to be patched
 	"${FILESDIR}/${PF}-boost.patch"
+
+	# Allow libusb >= 1.0.22 (removes deprecated 'libusb_set_debug()')
+	"${FILESDIR}/${PF}-libusb.patch"
 
 	# ImageMagick >= 7 removed various *_MAGICK_PP api's, which are possibly
 	# not needed. See: https://github.com/utsushi/utsushi/issues/43
