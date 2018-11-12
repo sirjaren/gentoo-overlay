@@ -22,16 +22,12 @@ IUSE="gtk jpeg +network nls openmp tiff udev"
 #   sys-devel/gettext
 #   sys-devel/libtool
 #   sys-devel/patch
-#
-# NOTE:
-#   Utsushi fails to build with GCC >= 8.0
-#   ImageMagick is now a hard dependency. See:
-#     https://gitlab.com/utsushi/utsushi/issues/58
 DEPEND="
 	dev-libs/gnulib
 	sys-devel/autoconf-archive
 	sys-devel/autoconf-wrapper
 	sys-devel/automake-wrapper
+	sys-devel/gcc
 	sys-devel/gettext
 	sys-devel/libtool
 	sys-devel/patch
@@ -39,7 +35,6 @@ DEPEND="
 	media-gfx/sane-backends
 	>=dev-libs/libusb-1.0.22
 	>=dev-libs/boost-1.50.0
-	<sys-devel/gcc-8
 	gtk?          ( dev-cpp/gtkmm:2.4 )
 	jpeg?         ( virtual/jpeg:0 )
 	tiff?         ( media-libs/tiff:0= )
@@ -62,18 +57,6 @@ PATCHES=(
 	# not needed. See: https://gitlab.com/utsushi/utsushi/issues/43
 	"${FILESDIR}/${PF}-magick-pp.patch"
 )
-
-pkg_setup() {
-	# Ensure GCC <= 8 is used, as a user may have a lower version installed
-	# but is currently set to use GCC >= 8
-	if (( $(gcc-major-version) >= 8 )); then
-		eerror
-		eerror "'${PN}' does not currently compile with >=sys-devel/gcc-8.0.0"
-		eerror "Use 'gcc-config' to set GCC to a lower version"
-		eerror
-		die
-	fi
-}
 
 src_prepare() {
 	default
