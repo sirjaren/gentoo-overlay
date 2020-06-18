@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit autotools eutils git-r3 multilib toolchain-funcs
+inherit autotools eutils git-r3 multilib toolchain-funcs udev
 
 DESCRIPTION="SANE backend driver for newer Epson scanners (DS, ET, PX, etc)"
 HOMEPAGE="https://gitlab.com/utsushi/utsushi"
@@ -47,15 +47,9 @@ RDEPEND="
 "
 
 PATCHES=(
-	# AX_BOOST_BASE does not need to be patched
-	"${FILESDIR}/${PF}-boost.patch"
-
-	# Allow libusb >= 1.0.22 (removes deprecated 'libusb_set_debug()')
-	"${FILESDIR}/${PF}-libusb.patch"
-
-	# ImageMagick >= 7 removed various *_MAGICK_PP api's, which are possibly
-	# not needed. See: https://gitlab.com/utsushi/utsushi/issues/43
-	"${FILESDIR}/${PF}-magick-pp.patch"
+	# Fixes building on boost 1.73
+	#   https://bugs.gentoo.org/721696
+	"${FILESDIR}/${PF}-boost-1.73.patch"
 )
 
 src_prepare() {
@@ -71,9 +65,9 @@ src_prepare() {
 
 src_configure() {
 	econf \
+		--with-boost-system                         \
 		--with-sane                                 \
 		--with-sane-confdir="${EPREFIX}"/etc/sane.d \
-		--with-boost=yes                            \
 		--with-magick                               \
 		--with-magick-pp                            \
 		$(use_with gtk gtkmm)                       \
@@ -82,5 +76,6 @@ src_configure() {
 		$(use_enable openmp)                        \
 		$(use_with tiff)                            \
 		$(use_enable udev udev-config)              \
-		$(use_with udev udev-confdir "${EPREFIX}"/$(get_libdir)/udev)
+		$(use_with udev udev-confdir "$(get_udevdir)")
+		#$(use_with udev udev-confdir "${EPREFIX}"/lib/udev)
 }
